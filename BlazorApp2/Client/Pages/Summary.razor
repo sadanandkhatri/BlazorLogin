@@ -1,0 +1,25 @@
+﻿@using BlazorApp2.Shared;
+@inject HttpClient Http
+
+
+<div class="container" style="background-color:azure ActiveBorder">
+    @summary
+</div>
+
+@code {
+    
+    private string summary;
+    [Parameter] public int id { get; set; }
+    private WeatherForecast[] forecasts;
+
+    protected override async Task OnInitializedAsync()
+    {
+        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
+        summary = forecasts.Where(x => x.Id == id).First().Summary;
+
+    }
+
+
+
+
+}
